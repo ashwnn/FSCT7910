@@ -1,0 +1,10 @@
+# Scope: Major cybersecurity events in 2018, focusing on vulnerabilities, takedowns, and policy.
+# Assumptions: Dates are based on public disclosure or event occurrence.
+# Array Format: Lists (e.g., CVEs, malware) are semicolon-separated and enclosed in quotes.
+event_id,date,event_type,title,description,affected_software_or_ecosystem,cve_ids,related_malware_families,potential_impact_on_malware,metrics,source_ids,confidence_score,notes
+EVT-2018-01-03,2018-01-03,new_cve,Meltdown and Spectre Vulnerabilities Disclosed,Public disclosure of Meltdown (CVE-2017-5754) and Spectre (CVE-2017-5753, CVE-2017-5715), a class of side-channel vulnerabilities affecting nearly all modern CPUs.,Most CPUs (Intel, AMD, ARM),"CVE-2017-5754; CVE-2017-5753; CVE-2017-5715",N/A,"Fundamental vulnerability in hardware, potentially allowing malware to bypass memory isolation and steal sensitive data (passwords, keys) from other processes.",_x000D_
+"{""notes"":""Fundamental hardware flaw.""}",https://meltdownattack.com/,1.0,"A landmark event in hardware security, requiring massive patching efforts at the OS and firmware levels."
+EVT-2018-03-22,2018-03-22,major_incident,City of Atlanta hit by SamSam Ransomware,The City of Atlanta's municipal services were crippled by a targeted SamSam ransomware attack, disrupting services for days and costing millions in recovery.,N/A,N/A,SamSam,"Highlighted the vulnerability of municipal governments to targeted ransomware and the high recovery costs.",_x000D_
+"{""estimated_cost_usd"":8500000,""ransom_demand_usd"":52000}",https://www.wired.com/story/atlanta-ransomware-attack-samsam-inside-story/,0.9,"One of the most high-profile ransomware attacks on a US city, demonstrating the impact of 'big game hunting'."
+EVT-2018-05-23,2018-05-23,law_enforcement_takedown,FBI seizes VPNFilter C2 domain,The FBI seized a key C2 domain (toknowall.com) used by the VPNFilter botnet and publicly advised all SOHO router owners to reboot their devices to disrupt the malware.,SOHO Routers/NAS,N/A,VPNFilter,"Disrupted a large, state-sponsored botnet and mitigated the immediate threat of its destructive payload.",_x000D_
+"{
