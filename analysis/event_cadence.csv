@@ -1,0 +1,11 @@
+year,advisory_release,arrest,botnet_activity,botnet_ddos,discovery,exploit_in_the_wild,exploit_release,first_detection,group_shutdown,infrastructure_disruption,kev_update,law_enforcement_action,law_enforcement_takedown,law_enforcement_warning,major_incident,malware_discovery,malware_emergence,malware_evolution,malware_release,new_cve,oss_report,patch_release,program_launch,research,research_release,security_advisory,tactic_change,technique_disclosure,tool_release,trend_summary,vendor_patch_directive,vulnerability_exploited,total
+2016,0,0,0,0,0,0,0,0,0,1,0,0,2,0,2,0,0,0,0,2,0,0,0,0,1,0,0,0,2,0,0,0,10
+2017,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3,0,0,0,0,3,0,1,0,0,0,0,0,0,2,0,0,0,10
+2018,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+2019,0,0,1,1,0,1,1,1,0,0,0,0,0,0,2,0,0,0,0,0,1,1,0,0,0,0,1,1,0,1,0,0,12
+2020,0,0,0,0,1,1,1,0,0,0,0,1,0,1,0,2,1,0,0,0,2,2,1,0,0,0,0,0,0,0,0,0,13
+2021,0,0,0,0,0,0,1,0,0,0,0,0,3,0,4,0,1,0,0,0,0,2,0,0,0,1,0,0,0,0,0,0,12
+2022,3,0,0,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,10
+2023,1,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,2,1,0,1,1,0,0,0,0,0,0,0,0,0,1,0,10
+2024,4,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2,0,9
+2025,5,0,0,0,0,0,0,0,0,0,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,10

@@ -1,0 +1,9 @@
+metric,value
+Total Timeline Events,98
+Timeline Date Range,2016-02-18 00:00:00 to 2025-10-20 00:00:00
+Botnet Families Analyzed,19
+Ransomware Families Analyzed,64
+Botnet Technique Breadth (range),1-7
+Ransomware Technique Breadth (range),1-5
+Double Extortion Prevalence,54.7%
+Longest Active Malware,Qakbot (16.7 years)

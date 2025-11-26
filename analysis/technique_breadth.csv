@@ -1,0 +1,84 @@
+malware_family,category,technique_count,techniques
+Emotet,Botnet,7,T1003.001; T1059.003; T1059.005; T1071.001; T1114.001; T1140; T1566.001
+Mirai,Botnet,6,T1021.003; T1059.006; T1070.004; T1098.001; T1547.001; T1595.001
+Emotet,Botnet,6,T1003.001; T1059.003; T1059.005; T1071.001; T1114.001; T1566.001
+TrickBot,Botnet,5,T1003.001; T1055.001; T1059.003; T1071.001; T1566.001
+SamSam,Ransomware,5,T1021.001; T1059.003; T1078; T1190; T1486
+Ryuk,Ransomware,5,T1003.001; T1021.001; T1057; T1070.004; T1486
+WannaCry,Ransomware,5,T1021.002; T1071.001; T1190; T1210; T1486
+GandCrab,Ransomware,4,T1190; T1210; T1486; T1566.001
+Bad Rabbit,Ransomware,4,T1003.001; T1210; T1486; T1566.002
+SamSam,Ransomware,4,T1021.002; T1059.003; T1190; T1486
+Sodinokibi (REvil),Ransomware,4,T1057; T1068; T1190; T1486
+Locky,Ransomware,4,T1059.003; T1071.001; T1106; T1486
+Dridex,Botnet,4,T1055.001; T1059.005; T1106; T1566.001
+LockBit 2.0,Ransomware,3,T1059; T1078; T1566
+Hive,Ransomware,3,T1021.004; T1078; T1490
+Snatch,Ransomware,3,T1053; T1133; T1486
+BianLian,Ransomware,3,T1027; T1078; T1566
+Ragnar Locker,Ransomware,3,T1068; T1486; T1561
+Avaddon,Ransomware,3,T1059; T1197; T1566
+Vice Society,Ransomware,3,T1036; T1059; T1071.001
+BlackCat/ALPHV,Ransomware,3,T1133; T1486; T1567.002
+LockBit,Ransomware,3,T1071.001; T1486; T1569.002
+Hive,Ransomware,3,T1078; T1190; T1486
+BlackMatter,Ransomware,3,T1078; T1486; T1561
+Conti,Ransomware,3,T1078; T1486; T1569.002
+Snatch,Ransomware,3,T1053; T1133; T1486
+CL0P,Ransomware,3,T1078; T1505.003; T1565.001
+NetWalker,Ransomware,3,T1078; T1190; T1486
+Interlock,Ransomware,3,T1189; T1486; T1566
+Play,Ransomware,3,T1078; T1486; T1566
+Medusa,Ransomware,3,T1078; T1486; T1566
+Play,Ransomware,3,T1078; T1486; T1566
+BianLian,Ransomware,3,T1027; T1078; T1566
+Rhysida,Ransomware,3,T1078; T1133; T1490
+Black Basta,Ransomware,3,T1059; T1078; T1486
+RansomHub,Ransomware,3,T1078; T1210; T1566
+Phobos,Ransomware,3,T1078; T1486; T1566
+Akira,Ransomware,3,T1078; T1486; T1566
+LockBit,Ransomware,3,T1078; T1486; T1556
+Play,Ransomware,3,T1078; T1486; T1566.002
+Rhysida,Ransomware,3,T1078; T1133; T1490
+Akira,Ransomware,3,T1078; T1486; T1566
+BianLian,Ransomware,3,T1027; T1078; T1566
+DoppelPaymer,Ransomware,3,T1078; T1486; T1562.004
+Rhysida,Ransomware,3,T1078; T1133; T1490
+Egregor,Ransomware,3,T1071.001; T1078; T1193
+REvil (Sodinokibi),Ransomware,3,T1059; T1078; T1190
+Cerber,Ransomware,3,T1059.007; T1071.001; T1486
+Conti,Ransomware,3,T1078; T1105; T1486
+Cerber,Ransomware,3,T1190; T1486; T1566.001
+Locky,Ransomware,3,T1059.003; T1486; T1566.001
+Jaff,Ransomware,3,T1059.005; T1486; T1566.001
+Dharma (Crisis),Ransomware,3,T1021.001; T1078; T1486
+Maze,Ransomware,3,T1193; T1499; T1566.001
+TrickBot,Botnet,3,T1059; T1068; T1566
+Emotet,Botnet,3,T1059; T1071.004; T1082
+VPNFilter,Botnet,3,T1071.001; T1114.002; T1561.001
+Reaper (IoTRooper),Botnet,3,T1059.006; T1190; T1595.001
+Necurs,Botnet,3,T1027; T1547.001; T1566.001
+DarkSide,Ransomware,3,T1059; T1078; T1566
+Petya,Ransomware,3,T1059.003; T1486; T1542.003
+Dridex,Botnet,2,T1059; T1078
+RapperBot,Botnet,2,T1078; T1135
+RapperBot,Botnet,2,T1078; T1135
+Qakbot,Botnet,2,T1071.004; T1566.001
+Qakbot,Botnet,2,T1105; T1566
+Dyn DDoS,Botnet,2,T1498; T1595.001
+Trickbot,Botnet,2,T1105; T1566
+TeslaCrypt,Ransomware,2,T1190; T1486
+LockBit,Ransomware,2,T1078; T1556
+Black Basta,Ransomware,2,T1059; T1486
+Spora,Ransomware,2,T1083; T1486
+Maui,Ransomware,2,T1047; T1486
+LockerGoga,Ransomware,2,T1059.003; T1078
+ALPHV/BlackCat,Ransomware,2,T1078; T1486
+Ryuk,Ransomware,2,T1105; T1486
+Babuk,Ransomware,2,T1078; T1486
+Clop,Ransomware,2,T1486; T1490
+Pysa (Mespinoza),Ransomware,2,T1078; T1486
+Snatch,Ransomware,2,T1490; T1562.004
+RSOCKS,Botnet,1,T1090.003
+Phobos,Ransomware,1,T1490
+Krebs DDoS,Botnet,1,T1498

@@ -1,0 +1,170 @@
+----------------------------------------------------------------------
+1. EVENT CADENCE (Timeline Events per Year)
+----------------------------------------------------------------------
+event_type  advisory_release  arrest  botnet_activity  botnet_ddos  discovery  exploit_in_the_wild  exploit_release  first_detection  group_shutdown  infrastructure_disruption  kev_update  law_enforcement_action  law_enforcement_takedown  law_enforcement_warning  major_incident  malware_discovery  malware_emergence  malware_evolution  malware_release  new_cve  oss_report  patch_release  program_launch  research  research_release  security_advisory  tactic_change  technique_disclosure  tool_release  trend_summary  vendor_patch_directive  vulnerability_exploited  total
+year                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+2016                       0       0                0            0          0                    0                0                0               0                          1           0                       0                         2                        0               2                  0                  0                  0                0        2           0              0               0         0                 1                  0              0                     0             2              0                       0                        0     10
+2017                       0       0                0            0          0                    0                0                0               0                          0           0                       0                         1                        0               3                  0                  0                  0                0        3           0              1               0         0                 0                  0              0                     0             2              0                       0                        0     10
+2018                       0       0                0            0          0                    0                0                0               0                          0           0                       0                         0                        0               1                  0                  0                  0                0        1           0              0               0         0                 0                  0              0                     0             0              0                       0                        0      2
+2019                       0       0                1            1          0                    1                1                1               0                          0           0                       0                         0                        0               2                  0                  0                  0                0        0           1              1               0         0                 0                  0              1                     1             0              1                       0                        0     12
+2020                       0       0                0            0          1                    1                1                0               0                          0           0                       1                         0                        1               0                  2                  1                  0                0        0           2              2               1         0                 0                  0              0                     0             0              0                       0                        0     13
+2021                       0       0                0            0          0                    0                1                0               0                          0           0                       0                         3                        0               4                  0                  1                  0                0        0           0              2               0         0                 0                  1              0                     0             0              0                       0                        0     12
+2022                       3       0                0            0          0                    0                0                0               1                          0           0                       0                         2                        0               0                  0                  0                  0                1        0           1              1               0         1                 0                  0              0                     0             0              0                       0                        0     10
+2023                       1       0                0            0          0                    0                0                0               0                          0           0                       0                         3                        0               0                  0                  2                  1                0        1           1              0               0         0                 0                  0              0                     0             0              0                       1                        0     10
+2024                       4       1                0            0          0                    0                0                0               0                          0           0                       0                         1                        0               0                  0                  0                  0                0        1           0              0               0         0                 0                  0              0                     0             0              0                       2                        0      9
+2025                       5       0                0            0          0                    0                0                0               0                          0           1                       0                         3                        0               0                  0                  0                  0                0        0           0              0               0         0                 0                  0              0                     0             0              0                       0                        1     10
+
+Saved to: analysis/event_cadence.csv
+
+----------------------------------------------------------------------
+2. MALWARE ACTIVE DURATION
+----------------------------------------------------------------------
+
+Top 10 Longest-Running Malware:
+ malware_family   category  duration_years  status
+         Qakbot     Botnet            16.7   ended
+         Necurs     Botnet            13.9 ongoing
+         Emotet     Botnet            11.9 ongoing
+         Emotet     Botnet            11.9 ongoing
+         Dridex     Botnet            11.9 ongoing
+Dharma (Crisis) Ransomware             9.9 ongoing
+         SamSam Ransomware             9.9 ongoing
+         SamSam Ransomware             9.9 ongoing
+          Locky Ransomware             9.8 ongoing
+          Locky Ransomware             9.8 ongoing
+
+Saved to: analysis/malware_duration.csv
+
+----------------------------------------------------------------------
+3. MITRE ATT&CK TECHNIQUE BREADTH
+----------------------------------------------------------------------
+
+Technique Count by Family:
+    malware_family   category  technique_count
+            Emotet     Botnet                7
+             Mirai     Botnet                6
+            Emotet     Botnet                6
+          TrickBot     Botnet                5
+            SamSam Ransomware                5
+              Ryuk Ransomware                5
+          WannaCry Ransomware                5
+          GandCrab Ransomware                4
+        Bad Rabbit Ransomware                4
+            SamSam Ransomware                4
+Sodinokibi (REvil) Ransomware                4
+             Locky Ransomware                4
+            Dridex     Botnet                4
+       LockBit 2.0 Ransomware                3
+              Hive Ransomware                3
+            Snatch Ransomware                3
+          BianLian Ransomware                3
+     Ragnar Locker Ransomware                3
+           Avaddon Ransomware                3
+      Vice Society Ransomware                3
+    BlackCat/ALPHV Ransomware                3
+           LockBit Ransomware                3
+              Hive Ransomware                3
+       BlackMatter Ransomware                3
+             Conti Ransomware                3
+            Snatch Ransomware                3
+              CL0P Ransomware                3
+         NetWalker Ransomware                3
+         Interlock Ransomware                3
+              Play Ransomware                3
+            Medusa Ransomware                3
+              Play Ransomware                3
+          BianLian Ransomware                3
+           Rhysida Ransomware                3
+       Black Basta Ransomware                3
+         RansomHub Ransomware                3
+            Phobos Ransomware                3
+             Akira Ransomware                3
+           LockBit Ransomware                3
+              Play Ransomware                3
+           Rhysida Ransomware                3
+             Akira Ransomware                3
+          BianLian Ransomware                3
+      DoppelPaymer Ransomware                3
+           Rhysida Ransomware                3
+           Egregor Ransomware                3
+REvil (Sodinokibi) Ransomware                3
+            Cerber Ransomware                3
+             Conti Ransomware                3
+            Cerber Ransomware                3
+             Locky Ransomware                3
+              Jaff Ransomware                3
+   Dharma (Crisis) Ransomware                3
+              Maze Ransomware                3
+          TrickBot     Botnet                3
+            Emotet     Botnet                3
+         VPNFilter     Botnet                3
+Reaper (IoTRooper)     Botnet                3
+            Necurs     Botnet                3
+          DarkSide Ransomware                3
+             Petya Ransomware                3
+            Dridex     Botnet                2
+         RapperBot     Botnet                2
+         RapperBot     Botnet                2
+            Qakbot     Botnet                2
+            Qakbot     Botnet                2
+          Dyn DDoS     Botnet                2
+          Trickbot     Botnet                2
+        TeslaCrypt Ransomware                2
+           LockBit Ransomware                2
+       Black Basta Ransomware                2
+             Spora Ransomware                2
+              Maui Ransomware                2
+        LockerGoga Ransomware                2
+    ALPHV/BlackCat Ransomware                2
+              Ryuk Ransomware                2
+             Babuk Ransomware                2
+              Clop Ransomware                2
+  Pysa (Mespinoza) Ransomware                2
+            Snatch Ransomware                2
+            RSOCKS     Botnet                1
+            Phobos Ransomware                1
+        Krebs DDoS     Botnet                1
+
+Saved to: analysis/technique_breadth.csv
+
+Summary Statistics:
+  Botnets - Mean: 3.1, Range: 1-7
+  Ransomware - Mean: 3.0, Range: 1-5
+
+----------------------------------------------------------------------
+4. DOUBLE EXTORTION PREVALENCE (Ransomware)
+----------------------------------------------------------------------
+  Total ransomware families: 64
+  With double extortion: 35
+  Prevalence: 54.7%
+
+----------------------------------------------------------------------
+5. PATCH-TO-EXPLOIT LAG (CVE to First Exploitation)
+----------------------------------------------------------------------
+  No matching CVE data found for lag analysis.
+
+----------------------------------------------------------------------
+6. BOTNET vs RANSOMWARE COMPARISON
+----------------------------------------------------------------------
+               Metric Botnets Ransomware
+       Total Families      19         64
+ Mean Technique Count     3.1        3.0
+Technique Count Range     1-7        1-5
+Mean Duration (years)     7.6        3.9
+ Max Duration (years)    16.7        9.9
+     Ongoing Families       9         33
+
+----------------------------------------------------------------------
+7. SUMMARY STATISTICS FOR PAPER
+----------------------------------------------------------------------
+                              metric                                      value
+               Total Timeline Events                                         98
+                 Timeline Date Range 2016-02-18 00:00:00 to 2025-10-20 00:00:00
+            Botnet Families Analyzed                                         19
+        Ransomware Families Analyzed                                         64
+    Botnet Technique Breadth (range)                                        1-7
+Ransomware Technique Breadth (range)                                        1-5
+         Double Extortion Prevalence                                      54.7%
+              Longest Active Malware                        Qakbot (16.7 years)
+
+Saved to: analysis/summary_statistics.csv
