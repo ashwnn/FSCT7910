@@ -263,6 +263,9 @@ Two researchers independently coded each event according to the \textbf{MITRE AT
     }
 \end{table}
 
+\subsection{Data Sources and Collection}
+The corpus relies exclusively on secondary, publicly available materials: peer-reviewed publications, reputable industry threat intelligence reports (CISA, FBI, Europol, vendor advisories), and curated knowledge bases such as MITRE ATT\&CK. Sources were included if they were published in English between 2016 and 2025, provided a verifiable technical description of at least one evasion technique, and could be attributed to a specific malware family or campaign with temporal context. Opinion pieces, non-technical blogs, marketing collateral, and sources lacking sufficient detail for coding were excluded. A two-stage screening process (title/abstract review followed by full-text analysis) resolved ambiguities through researcher discussion.
+
 \subsection{Replicability}
 All code used to clean data, compute metrics and generate figures is released with the dataset. The CSV files include a data dictionary describing fields and accepted values. By relying on publicly available sources and publishing the codebook used for ATT\&CK mapping, other researchers can replicate or extend the analysis with additional incidents or future years.
 
@@ -273,6 +276,8 @@ All code used to clean data, compute metrics and generate figures is released wi
 
 \subsection{Event cadence and notable periods}
 Figure \ref{fig:event_cadence_by_year} displays the number of timeline events per year. Activity is relatively steady in 2016--2018 (10 events per year), surges in 2019--2021 (12--13 events), and then levels off again in 2022--2025. The spike corresponds to the rapid growth of ransomware-as-a-service programmes and heightened public awareness. The composition of events shifts over time: early years are dominated by malware emergences and exploit disclosures; later years show more advisories and law-enforcement actions.
+
+Timeline events span 32 distinct event types, including advisories, arrests, botnet activity, exploits, malware emergence, patches, and law-enforcement takedowns. The period 2019--2021 shows concentrated malware emergence and exploit activity, coinciding with the expansion of affiliate-based ransomware models. In contrast, 2022--2024 features increased law-enforcement actions, with five advisories issued in 2024 alone. By 2025, activity continues with KEV (Known Exploited Vulnerabilities) catalog updates and ongoing advisory releases, reflecting the shift toward coordinated defensive responses.
 
 % -------------
 % Figure 1 
@@ -285,7 +290,36 @@ Figure \ref{fig:event_cadence_by_year} displays the number of timeline events pe
 \end{figure}
 
 \subsection{Family distribution and longevity}
-Table \ref{tab:family_longevity} summarises key statistics for botnet and ransomware families. Botnets number 19 and exhibit longer lifetimes (mean = 7.6 years) than the 64 ransomware families (mean = 3.9 years). The longest-running botnet, \textbf{Qakbot}, was active for 16.7 years. Ransomware families tend to burn out more quickly—only a few (e.g., SamSam and Dharma) exceed nine years. Mean technique counts are similar across categories (3.1 for botnets, 3.0 for ransomware), but as discussed below, the distribution of techniques varies.
+Table \ref{tab:family_longevity} summarises key statistics for botnet and ransomware families. Botnets number 19 and exhibit longer lifetimes (mean = 7.6 years) than the 64 ransomware families (mean = 3.9 years). The longest-running botnet, \textbf{Qakbot}, was active for 16.7 years. Ransomware families tend to burn out more quickly—only a few (e.g., SamSam and Dharma) exceed nine years. Mean technique counts are similar across categories (3.1 for botnets, 3.0 for ransomware), but as discussed below, the distribution of techniques varies. Notably, 9 of 19 botnet families (47\%) remain ongoing, compared to 33 of 64 ransomware families (52\%), indicating that both categories maintain active threat postures despite law-enforcement disruptions.
+
+Table \ref{tab:top_families} ranks the longest-running malware families by active duration, highlighting the persistence of botnet infrastructure compared to ransomware campaigns.
+
+\begin{table}[h!]
+    \centering
+    \caption{Top 7 Longest-Running Malware Families.}
+    \label{tab:top_families}
+    \resizebox{\linewidth}{!}{%
+        \begin{tabular}{|c|l|l|c|c|}
+            \hline
+            \textbf{Rank} & \textbf{Family} & \textbf{Category} & \textbf{Duration (y)} & \textbf{Status} \\
+            \hline
+            1 & Qakbot & Botnet & 16.7 & Ended \\
+            \hline
+            2 & Necurs & Botnet & 13.9 & Ongoing \\
+            \hline
+            3 & Emotet & Botnet & 11.9 & Ongoing \\
+            \hline
+            4 & Dridex & Botnet & 11.9 & Ongoing \\
+            \hline
+            5 & Dharma (Crisis) & Ransomware & 9.9 & Ongoing \\
+            \hline
+            6 & SamSam & Ransomware & 9.9 & Ongoing \\
+            \hline
+            7 & Locky & Ransomware & 9.8 & Ongoing \\
+            \hline
+        \end{tabular}%
+    }
+\end{table}
 
 % -------------
 % table 5
@@ -320,6 +354,37 @@ Table \ref{tab:family_longevity} summarises key statistics for botnet and ransom
 \subsection{Technique breadth and diversity}
 The technique breadth comparison (Figure \ref{fig:technique_breadth_comparison}) shows that while mean technique counts are similar, the range differs: botnets span 1--7 unique techniques per family whereas ransomware spans 1--5. This indicates slightly higher tactical diversity among botnets at the extreme. A heatmap of technique usage (Figure \ref{fig:technique_heatmap}) reveals that ransomware campaigns concentrate on \textbf{credential access}, \textbf{lateral movement} and \textbf{impact} techniques, whereas botnets distribute effort across \textbf{initial access}, \textbf{persistence} and \textbf{command-and-control}. These patterns suggest that botnets invest in maintaining footholds and reliability, whereas ransomware operators prioritise rapid execution and monetization.
 
+Table \ref{tab:top_techniques} lists the top families by technique count, demonstrating that botnet families---particularly Emotet and Mirai---exhibit the greatest behavioural complexity.
+
+\begin{table}[h!]
+    \centering
+    \caption{Top Malware Families by MITRE ATT\&CK Technique Count.}
+    \label{tab:top_techniques}
+    \resizebox{\linewidth}{!}{%
+        \begin{tabular}{|l|l|c|}
+            \hline
+            \textbf{Family} & \textbf{Category} & \textbf{Techniques} \\
+            \hline
+            Emotet & Botnet & 7 \\
+            \hline
+            Mirai & Botnet & 6 \\
+            \hline
+            TrickBot & Botnet & 5 \\
+            \hline
+            SamSam & Ransomware & 5 \\
+            \hline
+            Ryuk & Ransomware & 5 \\
+            \hline
+            WannaCry & Ransomware & 5 \\
+            \hline
+            GandCrab & Ransomware & 4 \\
+            \hline
+        \end{tabular}%
+    }
+\end{table}
+
+The dataset also reveals significant infection chain relationships. The Emotet$\rightarrow$TrickBot$\rightarrow$Ryuk chain, active from 2018--2021, exemplifies how modular botnets create layered infection ecosystems: Emotet provided initial access via phishing, TrickBot performed credential harvesting and lateral movement, and Ryuk executed the final ransomware payload. Similar chains emerged with Conti and later ransomware families, demonstrating the interdependence between botnet infrastructure and ransomware operations.
+
 % -------------
 % Figure 3
 % -------------
@@ -344,6 +409,9 @@ The technique breadth comparison (Figure \ref{fig:technique_breadth_comparison})
 \subsection{Double-extortion prevalence}
 \textbf{Double extortion}—where an attacker both encrypts data and exfiltrates it—has become a hallmark of modern ransomware. Among the 64 ransomware families in the dataset, 35 employ double extortion, representing $54.7\%$ of the total. Figure \ref{fig:double_extortion_trend} plots the adoption of double extortion over time. The tactic appears in multiple families from around 2019 and continues to rise, plateauing in the early 2020s as more groups incorporate data theft into their playbooks. By contrast, none of the botnet families engage in double extortion; they monetise through spam, credential theft, or proxy services instead.
 
+\subsection{Victim industry targeting}
+Analysis of victim industry data reveals that \textbf{healthcare}, \textbf{government}, and \textbf{education} sectors are the most frequently targeted across both ransomware and botnet campaigns. Manufacturing and finance represent significant secondary targets, while critical infrastructure targeting has increased notably since 2022. Healthcare organisations face particular exposure due to the operational urgency of patient care, which increases ransom payment likelihood. Government entities are attractive due to legacy systems and public visibility, while educational institutions often lack dedicated security resources. This concentration of attacks on essential services underscores the societal impact of modern ransomware operations.
+
 % -------------
 % Figure 5
 % -------------
@@ -355,7 +423,18 @@ The technique breadth comparison (Figure \ref{fig:technique_breadth_comparison})
 \end{figure}
 
 \subsection{Patch-to-exploit lag and law-enforcement impact}
-For the limited number of CVEs where patch release and exploitation dates were both available, the mean lag was approximately \textbf{23 days}. Although the sample is small, this short window underscores the need for rapid patching and vulnerability management. Law-enforcement impact is assessed by comparing incident counts before and after major takedowns. While arrests or infrastructure seizures temporarily reduce activity, incident volumes generally rebound within weeks, indicating that affiliate operators quickly migrate to new platforms. This finding aligns with the observation that ransomware families have short lifetimes yet reappear under different names.
+For the limited number of CVEs where patch release and exploitation dates were both available, the mean lag was approximately \textbf{23 days}. Although the sample is small, this short window underscores the need for rapid patching and vulnerability management. Notable examples include LockBit exploiting CVE-2023-4966 (Citrix Bleed) within 19 days of disclosure, Black Basta leveraging CVE-2024-1709 (ConnectWise ScreenConnect) within 27 days, and Rhysida targeting CVE-2020-1472 (Zerologon) approximately 23 days after patch availability.
+
+Law-enforcement impact is assessed by comparing incident counts before and after major takedowns. Several significant operations occurred during the study period:
+
+\begin{itemize}
+    \item \textbf{Operation Duck Hunt (August 2023):} Removed Qakbot malware from over 700,000 infected computers worldwide and seized \$8.6 million in illicit cryptocurrency.
+    \item \textbf{Hive Takedown (January 2023):} FBI infiltrated Hive's network for six months, providing over 300 decryption keys to victims and preventing more than \$130 million in ransom demands.
+    \item \textbf{Operation Cronos (February 2024):} Seized LockBit infrastructure across 34 servers, arrested two operators, and froze millions in cryptocurrency. LockBit had attacked over 2,500 victims across 120 countries.
+    \item \textbf{Operation Endgame (May 2025):} Neutralised multiple initial access malware families including Qakbot and TrickBot, taking down 300 servers, 650 domains, issuing 20 arrest warrants, and seizing \texteuro3.5 million.
+\end{itemize}
+
+While these operations achieved significant disruptions, incident volumes generally rebound within weeks, indicating that affiliate operators quickly migrate to new platforms. This finding aligns with the observation that ransomware families have short lifetimes yet reappear under different names.
 
 \FloatBarrier
 
@@ -366,6 +445,8 @@ For the limited number of CVEs where patch release and exploitation dates were b
 
 \subsection{Interpretation of results}
 The analysis reveals that malware ecosystems exhibit different life cycles: botnets persist and adapt slowly, whereas ransomware campaigns are shorter and more explosive. Despite their longevity, botnets do not necessarily display greater behavioural complexity; average technique counts are similar to ransomware, though some botnet families employ more techniques than any ransomware family. The prevalence of double extortion demonstrates that data theft has become a default strategy for financially motivated ransomware and that encryption alone no longer suffices to coerce payment. Event cadence peaks in 2019–2021 reflect rapid innovation and expansion of ransomware-as-a-service models, with subsequent years focusing more on advisories and law-enforcement actions.
+
+The evolution of Ransomware-as-a-Service (RaaS) programmes represents a fundamental shift in malware economics. GandCrab (2018) pioneered the affiliate model, claiming over \$2 billion in revenue before the developers retired in 2019. REvil/Sodinokibi emerged as its successor, adopting double extortion and targeting managed service providers. LockBit (2019--present) became the most prolific RaaS variant globally by 2022, introducing features like StealBIT for data exfiltration and cross-platform payloads. BlackCat/ALPHV (2021) represented the first major Rust-based ransomware, adding triple extortion (encryption, data leak, and DDoS threats). This progression demonstrates how RaaS lowered barriers to entry, enabling less technically sophisticated actors to deploy advanced ransomware.
 
 Short patch-to-exploit lags highlight the agility of threat actors; defenders must prioritise patch management and monitoring of newly disclosed vulnerabilities. The limited effect of law-enforcement operations suggests that dismantling infrastructure or arresting administrators is necessary but insufficient. Greater emphasis on disrupting affiliate networks, restricting payment channels and improving international cooperation may yield longer-term reductions in activity.
 
