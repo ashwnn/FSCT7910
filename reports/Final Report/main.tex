@@ -1,0 +1,389 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{url}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{makecell}
+\usepackage{array}
+\usepackage{dblfloatfix}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\setlength{\textfloatsep}{6pt plus 1pt minus 1pt}
+\setlength{\dbltextfloatsep}{6pt plus 1pt minus 1pt}
+\setlength{\dblfloatsep}{6pt plus 1pt minus 1pt}
+\setlength{\abovecaptionskip}{3pt}
+\setlength{\belowcaptionskip}{0pt}
+
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.7}
+\renewcommand{\dbltopfraction}{0.9}
+\renewcommand{\dblfloatpagefraction}{0.7}
+
+\begin{document}
+
+\title{Mapping the Evolution of Malware Evasion Techniques: A Decadal Analysis}
+
+\author{
+    \IEEEauthorblockN{Har Karan Kang, Ashwin Charathsandran, Jora Duhra}
+    \IEEEauthorblockA{
+        Digital Forensics and Cybersecurity\\
+        British Columbia Institute of Technology (BCIT)\\
+        Vancouver, BC, Canada\\
+        acharathsandran1@my.bcit.ca, hkang79@my.bcit.ca, jduhra6@my.bcit.ca
+    }
+}
+
+\maketitle
+
+% -------------
+% Abstract
+% -------------
+
+
+\begin{abstract}
+Malware authors continually refine evasion tactics, yet most research concentrates on individual campaigns or techniques without tracing how behaviours evolve over time. This paper constructs a decade‑long timeline of malware evasion from February 2016 to October 2025 using 98 curated events and 83 malware families drawn from public reports and technical analyses. Each event is coded to the MITRE ATT\&CK framework, enabling quantitative metrics such as event cadence, family longevity, technique breadth and the prevalence of double‑extortion tactics. The dataset shows that botnet families persist for an average of 7.6 years while ransomware families endure only 3.9 years, yet both categories exhibit similar mean technique counts (3.1 vs. 3.0). More than half of ransomware families (54.7 \%) employ double extortion, and the longest‑running malware (Qakbot) remained active for over 16 years. Peaks in event activity occur between 2019 and 2021, coinciding with the expansion of ransomware‑as‑a‑service programs. The study provides a reproducible measurement framework and highlights the need for longitudinal analysis to anticipate attacker adaptations and inform defensive strategies.
+
+\end{abstract}
+
+\begin{IEEEkeywords}
+malware evasion, measurement models, cybersecurity, MITRE ATT\&CK, longitudinal analysis
+\end{IEEEkeywords}
+
+% -------------
+% Introduction
+% -------------
+
+\section{Introduction}
+The ransomware and botnet ecosystems have transformed dramatically over the past decade. Attackers moved from opportunistic phishing and basic obfuscation to sophisticated campaigns that exploit living‑off‑the‑land binaries, fileless execution and credential theft. Modern ransomware operations also combine data theft with encryption to maximize leverage, a tactic now dubbed double extortion. Meanwhile, botnets have evolved into modular platforms that provide spam distribution, credential harvesting and proxy services. Despite these shifts, there is little published work that traces evasion behaviours across multiple families and years. Most studies isolate specific strains or highlight recent incidents, leaving analysts without a historical perspective on recurring tactics.
+
+The absence of a longitudinal view complicates digital forensics and incident response. Without understanding when and why particular evasion methods emerge, defenders may misinterpret recurring techniques as novel and misprioritise scarce resources. This paper addresses that gap by synthesizing a decade of malware activity from publicly reported incidents, coding each to the MITRE ATT\&CK framework, and computing metrics that illuminate temporal patterns. Our aims are to map the evolution of evasion strategies, compare behavioural complexity between ransomware and botnets, and assess how quickly attackers adopt new techniques after vulnerability disclosures. The resulting timeline and measurement model provide analysts with an evidence‑based reference to anticipate future shifts and prioritise mitigation's.
+
+
+To close the gap in cross-platform synthesis, the analysis addresses three questions:
+\begin{enumerate}
+  \item How have major evasion families changed in prevalence and sophistication between 2016 and 2025?
+  \item Which defender capabilities align with observable shifts in attacker choices?
+  \item How do trends vary by platform and malware family?
+\end{enumerate}
+
+This contribution supports targeted sandboxing, resilient behavior-based detections, and faster triage. Section II reviews related work, Section III details methods and analysis, Section IV presents findings, and Section V offers conclusions and future work.
+
+% -------------
+% Literature Review
+% -------------
+
+\section{Literature Review}
+
+\subsection{Theme 1: Evasion or Attack Tactics}
+
+Threat-intelligence reports and academic studies describe a wide array of \textbf{evasion tactics}, from code obfuscation and packing to anti-sandboxing, polymorphism, and living-off-the-land usage. Early ransomware families (e.g., GandCrab, Ryuk) relied heavily on \textbf{phishing} and macro-enabled documents for initial access, while botnet operators exploited default credentials and unpatched services on Internet-of-Things devices. \textbf{Double extortion} emerged in the late 2010s as ransomware operators began exfiltrating data before encryption, pressuring victims with public leaks. Botnets such as Mirai and Qakbot demonstrate long-term resilience, remaining operational across many years and repeatedly resurfacing with new variants.
+
+Existing work often focuses on narrow slices of the ecosystem. Surveys catalogued specific evasion techniques or analysed detection bypasses using static or dynamic analysis. Some research measured detection rates of anti-analysis checks, but few compared ransomware and botnet behaviours quantitatively. Studies addressing law-enforcement impact tend to describe high-profile operations qualitatively without evaluating how quickly attackers recover. Consequently, analysts lack a comprehensive map of tactic evolution over time and across families. This study fills that gap by quantifying technique diversity and event cadence and by comparing longevity and behavioural complexity between ransomware and botnets.
+
+% -------------
+% Lit review table 1
+% -------------
+\begin{table*}[t!]
+\centering
+\caption{Theme 1: Comparison of evasion or attack tactics, detections, and findings}
+\label{tab:litmatrix-theme1}
+\scriptsize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.2}
+% CHANGED: {l l X X} makes the first two columns tight (fit to text) 
+% and gives the last two columns (Detection/Findings) all the remaining space.
+\begin{tabularx}{\textwidth}{l p{3.5cm} X X}
+\toprule
+\textbf{Author \& Year} & \textbf{Technique Type} & \textbf{Detection method} & \textbf{Key Findings} \\
+\midrule
+\textbf{Cisco Talos, 2018} \cite{ciscotalos2018emotet} & 
+Phishing, VB, Command Shell, C2, Credential Dumping &
+\makecell[tl]{Block malicious attachments\\ Disable macros\\ User training} &
+Emotet's activity in 2018 significantly grew as it became the main dropper for TrickBot, which caused Ryuk ransomware to be dropped. \\
+\addlinespace
+\textbf{Cisco Talos, 2018} \cite{ciscotalos2018gandcrab} & 
+Exploit public-facing app, phishing, remote services &
+\makecell[tl]{Patch Office vulnerabilities\\ Secure RDP\\ Email filtering} &
+Operated a successful RaaS affiliate program; developers retired in 2019 after claiming to have made over \$2B. \\
+\addlinespace
+\textbf{SentinelOne, 2019} \cite{sentinelone2019maze} & 
+Data encryption, data exfiltration, valid accounts &
+\makecell[tl]{Improve DLP\\ Monitor exfiltration\\ Backups} &
+Pioneered double extortion, requiring defenders to detect both encryption and exfiltration. \\
+\addlinespace
+\textbf{Level 3, 2016} \cite{level32016mirai} & 
+DDoS, proxy services &
+\makecell[tl]{IoT patching\\ ISP filtering\\ Credential hardening} &
+Mirai variants leveraged insecure IoT for massive DDoS and proxy resale. \\
+\addlinespace
+\textbf{NCA, 2024} \cite{nca2024lockbit} & 
+Credential abuse, MFA bypass, encryption for impact &
+\makecell[tl]{Implement MFA\\ Patch Citrix/ScreenConnect\\ Monitor lateral movement} &
+Operation Cronos in February 2024 seized LockBit infrastructure, compromised 34 servers, arrested 2 operators, and froze millions. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{Theme 2: Technical Traits}
+
+From a technical standpoint, ransomware samples typically combine service termination, credential theft, file encryption and exfiltration, whereas botnets emphasise propagation and command‑and‑control reliability. Both categories increasingly leverage legitimate utilities (PowerShell, WMI, Scheduled Tasks) to blend into normal system activity. Detection methods include signature‑based scanning, sandbox detonations, machine‑learning classifiers trained on API call sequences and static analysis of control‑flow graphs. However, most detection evaluations use small datasets or time‑bound collections, limiting generalisability. Our use of the MITRE ATT\&CK framework across a ten‑year corpus enables measurement of technique breadth and diversity at scale.
+
+
+% -------------
+% Lit review table 2
+% -------------
+\begin{table*}[t!]
+\centering
+\caption{Theme 2: Technical architectures and design characteristics}
+\label{tab:litmatrix-theme2}
+\scriptsize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.2}
+% CHANGED: Optimized columns for better fit
+\begin{tabularx}{\textwidth}{l p{3.5cm} X X}
+\toprule
+\textbf{Author \& Year} & \textbf{Technique Type} & \textbf{Detection method} & \textbf{Key Findings} \\
+\midrule
+\textbf{Mandiant, 2022} \cite{mandiant2022lockbit} & 
+Encryption for impact, service stop, web protocols &
+\makecell[tl]{Apply patches\\ Implement MFA\\ Phishing awareness} &
+Reflects a key phase of RaaS success, focusing on rapid exploitation of critical vulnerabilities. \\
+\addlinespace
+\textbf{CISA, 2022} \cite{cisa2022blackbasta} & 
+Spearphishing, exploiting vulnerabilities, double extortion &
+\makecell[tl]{Patch ConnectWise\\ Implement MFA\\ Monitor remote access} &
+As of May 2024, impacted 500+ organizations, using ScreenConnect exploits and new social engineering. \\
+\addlinespace
+\textbf{CISA, 2023} \cite{cisa2023rhysida} & 
+VPN credential compromise, Zerologon, phishing &
+\makecell[tl]{MFA for VPN\\ Patch Zerologon\\ Phishing education} &
+Emerged using compromised VPN credentials and the Zerologon vulnerability for domain takeover. \\
+\addlinespace
+\textbf{Palo Alto, 2024} \cite{paloaltonetworks2024rhub} & 
+Phishing, vulnerability exploitation, password spraying &
+\makecell[tl]{Patch known vulnerabilities\\ Restrict external services\\ Monitor unusual traffic} &
+Rebranded from Cyclops/Knight in February 2024; rapidly victimized 210+ organizations with multiple exploits and double extortion. \\
+\addlinespace
+\textbf{Freund, 2024} \cite{freund2024xz} & 
+Supply chain compromise, unauthorized access &
+\makecell[tl]{Downgrade xz utils\\ Audit systems} &
+Malicious code embedded into the open source xz utils library threatened unauthorized access globally. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{Theme 3: Impact Metrics}
+
+Impact assessments typically report ransom demands, downtime and victim counts, yet comparative metrics across families are scarce. The dataset used here provides several useful indicators: the number of events per year, active durations of malware families and the prevalence of double‑extortion tactics. Table 1 in the data analysis section shows that botnets persist longer and that double extortion is now the majority model in ransomware operations. Despite increased law‑enforcement activity in 2022‑2024 (reflected in a higher proportion of advisories and takedowns), ransomware incidents did not decline substantially, suggesting that affiliate programmes or rebranding quickly fill any vacuum.
+
+% -------------
+% Lit review table 3
+% -------------
+\begin{table*}[t!]
+\centering
+\caption{Theme 3: Impact measurement and observed outcomes}
+\label{tab:litmatrix-theme3}
+\scriptsize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.2}
+% CHANGED: Optimized columns for better fit
+\begin{tabularx}{\textwidth}{l p{3.5cm} X X}
+\toprule
+\textbf{Author \& Year} & \textbf{Impact Metrics} & \textbf{Detection method} & \textbf{Key Findings} \\
+\midrule
+\textbf{Wikipedia, 2016} \cite{wikipedia2016dyn} & 
+Peak bandwidth 1.2 Tbps; massive DDoS against Dyn &
+\makecell[tl]{DDoS mitigation services\\ DNS redundancy} &
+Systemic risk of insecure IoT targeting DNS caused outages for major sites such as Twitter, Netflix, and Reddit. \\
+\addlinespace
+\textbf{SentinelOne, 2020} \cite{sentinelone2020conti} & 
+Victims tens to hundreds; ransom scale millions &
+\makecell[tl]{Threat intel\\ Supply chain monitoring\\ Offline backups} &
+Defined affiliate driven, human operated targeted ransomware with large demands. \\
+\addlinespace
+\textbf{Mandiant, 2021} \cite{mandiant2021darkside} & 
+Impact multi-million demands; disruptions severe &
+\makecell[tl]{Patch supply chain software\\ Incident response} &
+Responsible for high profile supply chain and critical infrastructure strikes, including Colonial Pipeline. \\
+\addlinespace
+\textbf{CISA, 2023} \cite{cisa2023hive} & 
+\$130 million prevented &
+\makecell[tl]{Patch Fortinet/VMware\\ Enforce MFA} &
+FBI infiltrated Hive, seized servers, and provided keys, preventing over \$130M in ransoms. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\FloatBarrier
+
+
+% -------------
+% Methodology
+% -------------
+\section{Methodology}
+
+\subsection{Coding and measurement}
+Two researchers independently coded each event according to the \textbf{MITRE ATT\&CK framework}. Fields captured include technique identifier, tactic category, description, and evidence excerpt. Additional attributes flag whether \textbf{data exfiltration and encryption} occurred (indicating double extortion), record exploited CVEs, and note mitigations. Inter-rater agreement was assessed, and disagreements were reconciled via discussion. The resulting CSV files (\texttt{event\_cadence.csv}, \texttt{malware\_duration.csv}, \texttt{technique\_breadth.csv}) support the calculation of the following metrics:
+
+% -------------
+% Table 4
+% -------------
+\begin{table}[t!]
+    \centering
+    \caption{Metrics Calculated for Malware and Botnet Analysis}
+    \label{tab:metrics}
+    \resizebox{\linewidth}{!}{%
+        \begin{tabular}{|l|p{6cm}|}
+            \hline
+            \textbf{Metric} & \textbf{Purpose} \\
+            \hline
+            Event cadence & Counts events by month and type to identify temporal patterns. \\
+            \hline
+            Family longevity & Measures the duration between first and last sightings for each family, summarised by category. \\
+            \hline
+            Technique breadth & Counts unique ATT\&CK techniques per family to gauge behavioural complexity. \\
+            \hline
+            Double-extortion share & Calculates the proportion of ransomware families that combine encryption and exfiltration tactics. \\
+            \hline
+            Patch-to-exploit lag & Estimates days between patch release and exploitation for CVEs. \\
+            \hline
+            Law-enforcement impact & Compares incident counts before and after takedowns. \\
+            \hline
+        \end{tabular}%
+    }
+\end{table}
+
+\subsection{Replicability}
+All code used to clean data, compute metrics and generate figures is released with the dataset. The CSV files include a data dictionary describing fields and accepted values. By relying on publicly available sources and publishing the codebook used for ATT\&CK mapping, other researchers can replicate or extend the analysis with additional incidents or future years.
+
+% -------------
+% Data Analysis / Evaluation
+% -------------
+\section{Data Analysis / Evaluation}
+
+\subsection{Event cadence and notable periods}
+Figure \ref{fig:event_cadence_by_year} displays the number of timeline events per year. Activity is relatively steady in 2016--2018 (10 events per year), surges in 2019--2021 (12--13 events), and then levels off again in 2022--2025. The spike corresponds to the rapid growth of ransomware-as-a-service programmes and heightened public awareness. The composition of events shifts over time: early years are dominated by malware emergences and exploit disclosures; later years show more advisories and law-enforcement actions.
+
+% -------------
+% Figure 1 
+% -------------
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/event_cadence_by_year.png}
+    \caption{Number of timeline events per year.}
+    \label{fig:event_cadence_by_year}
+\end{figure}
+
+\subsection{Family distribution and longevity}
+Table \ref{tab:family_longevity} summarises key statistics for botnet and ransomware families. Botnets number 19 and exhibit longer lifetimes (mean = 7.6 years) than the 64 ransomware families (mean = 3.9 years). The longest-running botnet, \textbf{Qakbot}, was active for 16.7 years. Ransomware families tend to burn out more quickly—only a few (e.g., SamSam and Dharma) exceed nine years. Mean technique counts are similar across categories (3.1 for botnets, 3.0 for ransomware), but as discussed below, the distribution of techniques varies.
+
+% -------------
+% table 5
+% -------------
+\begin{table}[h!]
+    \centering
+    \caption{Malware Family Comparison and Longevity Statistics.}
+    \label{tab:family_longevity}
+    \resizebox{\linewidth}{!}{%
+        \begin{tabular}{|l|c|c|c|c|}
+            \hline
+            \textbf{Category} & \textbf{Families} & \textbf{Mean techniques} & \textbf{Mean duration (y)} & \textbf{Max duration (y)} \\
+            \hline
+            Botnet & 19 & 3.1 & 7.6 & 16.7 \\
+            \hline
+            Ransomware & 64 & 3.0 & 3.9 & 9.9 \\
+            \hline
+        \end{tabular}%
+    }
+\end{table}
+
+% -------------
+% Figure 2 
+% -------------
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/malware_duration_comparison.png}
+    \caption{Comparison of family duration between botnets and ransomware.}
+    \label{fig:malware_duration_comparison}
+\end{figure}
+
+\subsection{Technique breadth and diversity}
+The technique breadth comparison (Figure \ref{fig:technique_breadth_comparison}) shows that while mean technique counts are similar, the range differs: botnets span 1--7 unique techniques per family whereas ransomware spans 1--5. This indicates slightly higher tactical diversity among botnets at the extreme. A heatmap of technique usage (Figure \ref{fig:technique_heatmap}) reveals that ransomware campaigns concentrate on \textbf{credential access}, \textbf{lateral movement} and \textbf{impact} techniques, whereas botnets distribute effort across \textbf{initial access}, \textbf{persistence} and \textbf{command-and-control}. These patterns suggest that botnets invest in maintaining footholds and reliability, whereas ransomware operators prioritise rapid execution and monetization.
+
+% -------------
+% Figure 3
+% -------------
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/technique_breadth_comparison.png}
+    \caption{Comparison of the breadth (range) of unique MITRE ATT\&CK techniques used by botnet and ransomware families.}
+    \label{fig:technique_breadth_comparison}
+\end{figure}
+
+
+% -------------
+% Figure 4 
+% -------------
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/technique_heatmap.png}
+    \caption{Heatmap illustrating the frequency and distribution of MITRE ATT\&CK technique usage across botnet and ransomware families.}
+    \label{fig:technique_heatmap}
+\end{figure}
+
+\subsection{Double-extortion prevalence}
+\textbf{Double extortion}—where an attacker both encrypts data and exfiltrates it—has become a hallmark of modern ransomware. Among the 64 ransomware families in the dataset, 35 employ double extortion, representing $54.7\%$ of the total. Figure \ref{fig:double_extortion_trend} plots the adoption of double extortion over time. The tactic appears in multiple families from around 2019 and continues to rise, plateauing in the early 2020s as more groups incorporate data theft into their playbooks. By contrast, none of the botnet families engage in double extortion; they monetise through spam, credential theft, or proxy services instead.
+
+% -------------
+% Figure 5
+% -------------
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/double_extortion_trend.png}
+    \caption{Adoption trend of double extortion among ransomware families over time.}
+    \label{fig:double_extortion_trend}
+\end{figure}
+
+\subsection{Patch-to-exploit lag and law-enforcement impact}
+For the limited number of CVEs where patch release and exploitation dates were both available, the mean lag was approximately \textbf{23 days}. Although the sample is small, this short window underscores the need for rapid patching and vulnerability management. Law-enforcement impact is assessed by comparing incident counts before and after major takedowns. While arrests or infrastructure seizures temporarily reduce activity, incident volumes generally rebound within weeks, indicating that affiliate operators quickly migrate to new platforms. This finding aligns with the observation that ransomware families have short lifetimes yet reappear under different names.
+
+\FloatBarrier
+
+% -------------
+% discussion
+% -------------
+\section{Discussion}
+
+\subsection{Interpretation of results}
+The analysis reveals that malware ecosystems exhibit different life cycles: botnets persist and adapt slowly, whereas ransomware campaigns are shorter and more explosive. Despite their longevity, botnets do not necessarily display greater behavioural complexity; average technique counts are similar to ransomware, though some botnet families employ more techniques than any ransomware family. The prevalence of double extortion demonstrates that data theft has become a default strategy for financially motivated ransomware and that encryption alone no longer suffices to coerce payment. Event cadence peaks in 2019–2021 reflect rapid innovation and expansion of ransomware-as-a-service models, with subsequent years focusing more on advisories and law-enforcement actions.
+
+Short patch-to-exploit lags highlight the agility of threat actors; defenders must prioritise patch management and monitoring of newly disclosed vulnerabilities. The limited effect of law-enforcement operations suggests that dismantling infrastructure or arresting administrators is necessary but insufficient. Greater emphasis on disrupting affiliate networks, restricting payment channels and improving international cooperation may yield longer-term reductions in activity.
+
+\subsection{Comparison to prior work and gaps}
+This study extends previous surveys by providing a quantitative, longitudinal perspective that spans multiple families and platforms. Whereas earlier work catalogued individual evasion techniques or measured detection rates in small datasets, our analysis compares behavioural complexity across categories and years, measures active durations, and quantifies the adoption of double extortion. By releasing the dataset and code used to compute metrics, the work encourages reproducibility and further research into temporal patterns. Remaining gaps include limited coverage of mobile and cloud-native malware, sparse data on patch-to-exploit lag and a need for controlled dynamic analysis to capture emergent techniques.
+
+% -------------
+% conclussion
+% -------------
+\section{Conclusion and Future Work}
+This decadal analysis synthesises 98 public incidents into a structured timeline, offering a rare longitudinal view of how malware evasion strategies evolve. Key contributions include demonstrating that botnets persist longer than ransomware despite similar technique counts, quantifying that over half of ransomware families now practise double extortion, and showing that event activity peaked during the rise of ransomware-as-a-service models. These insights help analysts recognise recurring patterns, prioritise defences such as rapid patching and credential hygiene, and appreciate the limited deterrent effect of takedowns.
+
+Future work should expand the dataset to include mobile, cloud and container-native malware and should integrate dynamic execution traces to capture advanced evasions like scriptless attacks and AI-generated payloads. Quantitative evaluation of law-enforcement impact could be refined by correlating incidents with specific arrest or seizure dates. Finally, predictive models could be developed to forecast the emergence of new techniques and to identify families most likely to adopt double extortion, thereby enabling proactive defence.
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+\end{document}
