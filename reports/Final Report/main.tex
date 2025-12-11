@@ -55,7 +55,7 @@
 
 
 \begin{abstract}
-Malware authors contfloatinually refine evasion tactics, yet most research concentrates on individual campaigns or techniques without tracing how behaviours evolve over time. This paper constructs a decade‑long timeline of malware evasion from February 2016 to October 2025 using 98 curated events and 83 malware families drawn from public reports and technical analyses. Each event is coded to the MITRE ATT\&CK framework, enabling quantitative metrics such as event cadence, family longevity, technique breadth and the prevalence of double‑extortion tactics. The dataset shows that botnet families persist for an average of 7.6 years while ransomware families endure only 3.9 years, yet both categories exhibit similar mean technique counts (3.1 vs. 3.0). More than half of ransomware families (54.7 \%) employ double extortion, and the longest‑running malware (Qakbot) remained active for over 16 years. Peaks in event activity occur between 2019 and 2021, coinciding with the expansion of ransomware‑as‑a‑service programs. The study provides a reproducible measurement framework and highlights the need for longitudinal analysis to anticipate attacker adaptations and inform defensive strategies.
+Malware authors continually refine evasion tactics, yet most research concentrates on individual campaigns or techniques without tracing how behaviours evolve over time. This paper constructs a decade‑long timeline of malware evasion from February 2016 to October 2025 using 98 curated events and 83 malware families drawn from public reports and technical analyses. Each event is coded to the MITRE ATT\&CK framework, enabling quantitative metrics such as event cadence, family longevity, technique breadth and the prevalence of double‑extortion tactics. The dataset shows that botnet families persist for an average of 7.6 years while ransomware families endure only 3.9 years, yet both categories exhibit similar mean technique counts (3.1 vs. 3.0). More than half of ransomware families (54.7 \%) employ double extortion, and the longest‑running malware (Qakbot) remained active for over 16 years. Peaks in event activity occur between 2019 and 2021, coinciding with the expansion of ransomware‑as‑a‑service programs. The study provides a reproducible measurement framework and highlights the need for longitudinal analysis to anticipate attacker adaptations and inform defensive strategies.
 
 \end{abstract}
 
@@ -68,9 +68,9 @@ malware evasion, measurement models, cybersecurity, MITRE ATT\&CK, longitudinal 
 % -------------
 
 \section{Introduction}
-The ransomware and botnet ecosystems have transformed dramatically over the past decade. Attackers moved from opportunistic phishing and basic obfuscation to sophisticated campaigns that exploit living‑off‑the‑land binaries, fileless execution and credential theft. Modern ransomware operations also combine data theft with encryption to maximize leverage, a tactic now dubbed double extortion. Meanwhile, botnets have evolved into modular platforms that provide spam distribution, credential harvesting and proxy services. Despite these shifts, there is little published work that traces evasion behaviours across multiple families and years. Most studies isolate specific strains or highlight recent incidents, leaving analysts without a historical perspective on recurring tactics.
+The ransomware and botnet ecosystems have transformed dramatically over the past decade. Attackers moved from opportunistic phishing and basic obfuscation to sophisticated campaigns that exploit living‑off‑the‑land binaries, fileless execution and credential theft. Modern ransomware operations also combine data theft with encryption to maximise leverage, a tactic now dubbed double extortion. Meanwhile, botnets have evolved into modular platforms that provide spam distribution, credential harvesting and proxy services. Despite these shifts, there is little published work that traces evasion behaviours across multiple families and years. Most studies isolate specific strains or highlight recent incidents, leaving analysts without a historical perspective on recurring tactics.
 
-The absence of a longitudinal view complicates digital forensics and incident response. Without understanding when and why particular evasion methods emerge, defenders may misinterpret recurring techniques as novel and misprioritise scarce resources. This paper addresses that gap by synthesizing a decade of malware activity from publicly reported incidents, coding each to the MITRE ATT\&CK framework, and computing metrics that illuminate temporal patterns. Our aims are to map the evolution of evasion strategies, compare behavioural complexity between ransomware and botnets, and assess how quickly attackers adopt new techniques after vulnerability disclosures. The resulting timeline and measurement model provide analysts with an evidence‑based reference to anticipate future shifts and prioritise mitigation's.
+The absence of a longitudinal view complicates digital forensics and incident response. Without understanding when and why particular evasion methods emerge, defenders may misinterpret recurring techniques as novel and misprioritise scarce resources. This paper addresses that gap by synthesising a decade of malware activity from publicly reported incidents, coding each to the MITRE ATT\&CK framework, and computing metrics that illuminate temporal patterns. Our aims are to map the evolution of evasion strategies, compare behavioural complexity between ransomware and botnets, and assess how quickly attackers adopt new techniques after vulnerability disclosures. The resulting timeline and measurement model provide analysts with an evidence‑based reference to anticipate future shifts and prioritise mitigations.
 
 
 To close the gap in cross-platform synthesis, the analysis addresses three questions:
@@ -80,7 +80,7 @@ To close the gap in cross-platform synthesis, the analysis addresses three quest
   \item How do trends vary by platform and malware family?
 \end{enumerate}
 
-This contribution supports targeted sandboxing, resilient behavior-based detections, and faster triage. Section II reviews related work, Section III details methods and analysis, Section IV presents findings, and Section V offers conclusions and future work.
+This contribution supports targeted sandboxing, resilient behaviour-based detections, and faster triage. Section II reviews related work, Section III details methods and analysis, Section IV presents findings, and Section V offers conclusions and future work.
 
 % -------------
 % Literature Review
@@ -163,7 +163,7 @@ Reflects a key phase of RaaS success, focusing on rapid exploitation of critical
 \textbf{CISA, 2022} \cite{cisa2022blackbasta} & 
 Spearphishing, exploiting vulnerabilities, double extortion &
 \makecell[tl]{Patch ConnectWise\\ Implement MFA\\ Monitor remote access} &
-As of May 2024, impacted 500+ organizations, using ScreenConnect exploits and new social engineering. \\
+As of May 2024, impacted 500+ organisations, using ScreenConnect exploits and new social engineering. \\
 \addlinespace
 \textbf{CISA, 2023} \cite{cisa2023rhysida} & 
 VPN credential compromise, Zerologon, phishing &
@@ -173,12 +173,12 @@ Emerged using compromised VPN credentials and the Zerologon vulnerability for do
 \textbf{Palo Alto, 2024} \cite{paloaltonetworks2024rhub} & 
 Phishing, vulnerability exploitation, password spraying &
 \makecell[tl]{Patch known vulnerabilities\\ Restrict external services\\ Monitor unusual traffic} &
-Rebranded from Cyclops/Knight in February 2024; rapidly victimized 210+ organizations with multiple exploits and double extortion. \\
+Rebranded from Cyclops/Knight in February 2024; rapidly victimised 210+ organisations with multiple exploits and double extortion. \\
 \addlinespace
 \textbf{Freund, 2024} \cite{freund2024xz} & 
-Supply chain compromise, unauthorized access &
+Supply chain compromise, unauthorised access &
 \makecell[tl]{Downgrade xz utils\\ Audit systems} &
-Malicious code embedded into the open source xz utils library threatened unauthorized access globally. \\
+Malicious code embedded into the open source xz utils library threatened unauthorised access globally. \\
 \bottomrule
 \end{tabularx}
 \end{table*}
@@ -375,7 +375,7 @@ Conversely, ransomware emergence (in red) exhibits high volatility with repeatin
 
 
 \subsection{Technique breadth and diversity}
-The technique breadth comparison (Figure \ref{fig:technique_breadth_comparison}) shows that while mean technique counts are similar, the range differs: botnets span 1--7 unique techniques per family whereas ransomware spans 1--5. This indicates slightly higher tactical diversity among botnets at the extreme. A heatmap of technique usage (Figure \ref{fig:technique_heatmap}) reveals that ransomware campaigns concentrate on \textbf{credential access}, \textbf{lateral movement} and \textbf{impact} techniques, whereas botnets distribute effort across \textbf{initial access}, \textbf{persistence} and \textbf{command-and-control}. These patterns suggest that botnets invest in maintaining footholds and reliability, whereas ransomware operators prioritise rapid execution and monetization.
+The technique breadth comparison (Figure \ref{fig:technique_breadth_comparison}) shows that while mean technique counts are similar, the range differs: botnets span 1--7 unique techniques per family whereas ransomware spans 1--5. This indicates slightly higher tactical diversity among botnets at the extreme. A heatmap of technique usage (Figure \ref{fig:technique_heatmap}) reveals that ransomware campaigns concentrate on \textbf{credential access}, \textbf{lateral movement} and \textbf{impact} techniques, whereas botnets distribute effort across \textbf{initial access}, \textbf{persistence} and \textbf{command-and-control}. These patterns suggest that botnets invest in maintaining footholds and reliability, whereas ransomware operators prioritise rapid execution and monetisation.
 
 Table \ref{tab:top_techniques} lists the top families by technique count, demonstrating that botnet families---particularly Emotet and Mirai---exhibit the greatest behavioural complexity.
 
@@ -433,15 +433,15 @@ The dataset also reveals significant infection chain relationships. The Emotet$\
 % Start of padding out persistence machanisms
 % -------------
 \subsection{Persistence Mechanisms}
-Persistence is a critical differentiator in malware operational objectives. Figure \ref{fig:persistence} contrasts the persistence mechanisms favored by botnets versus ransomware. Botnets (blue bars) exhibit a strong preference for stealthy, long-term footholds such as Scheduled Tasks and Registry Run Keys. This aligns with their need to remain undetected for months or years to facilitate spam distribution or proxy services. The equal reliance on SSH Keys highlights the growing trend of botnets targeting Linux-based IoT devices and servers for reliable infrastructure.
+Persistence is a critical differentiator in malware operational objectives. Figure \ref{fig:persistence} contrasts the persistence mechanisms favoured by botnets versus ransomware. Botnets (blue bars) exhibit a strong preference for stealthy, long-term footholds such as Scheduled Tasks and Registry Run Keys. This aligns with their need to remain undetected for months or years to facilitate spam distribution or proxy services. The equal reliance on SSH Keys highlights the growing trend of botnets targeting Linux-based IoT devices and servers for reliable infrastructure.
 
-In constrast, ransomware (red bars) demonstrates an overwhelming reliance on Scheduled Tasks and Windows Services. While ransomware also requires persistence to complete encryption routines or maintain access for negotiation, its operational windows are typically shorter. The data shows ransomware families are less likely to employ complex mechanisms like Re-infection or Rootkits. This is likely because of their "loud" encryption phase making long term stealth irrelevant once the payload is executed.
+In contrast, ransomware (red bars) demonstrates an overwhelming reliance on Scheduled Tasks and Windows Services. While ransomware also requires persistence to complete encryption routines or maintain access for negotiation, its operational windows are typically shorter. The data shows ransomware families are less likely to employ complex mechanisms like Re-infection or Rootkits. This is likely because of their "loud" encryption phase making long term stealth irrelevant once the payload is executed.
 
 
 \begin{figure*}[h!]
     \centering
     \includegraphics[width=0.9\textwidth]{graphs/persistence_mechanisms.pdf}
-    \caption{Frequency of persistence mechanisms by malware category. Botnets favor diverse, stealthy methods (SSH Keys, Registry) to ensure longevity, while ransomware relies heavily on standard Windows administrative tools (Scheduled Tasks, Services) for reliability during the attack window.}
+    \caption{Frequency of persistence mechanisms by malware category. Botnets favour diverse, stealthy methods (SSH Keys, Registry) to ensure longevity, while ransomware relies heavily on standard Windows administrative tools (Scheduled Tasks, Services) for reliability during the attack window.}
     \label{fig:persistence}
 \end{figure*}
 
@@ -475,9 +475,9 @@ Analysis of victim industry data reveals that \textbf{healthcare}, \textbf{gover
 \subsection{Evolution of Ransomware-as-a-Service (RaaS)}
 The shift towards Ransomware-as-a-Service (RaaS) represents a restructuring of the cybercrime economy. Figure \ref{fig:raas_evolution} illustrates the rapid adoption of this model from 2016 to 2025. The early years of this study (2016-2017) had more traditional and self contained ransomware families being more prevalent. However, a pivot occurred around 2019, coinciding with the rise of families like REvil and LockBit.
 
-By 2025 RaaS families account for \textbf{61\%} of the cumulative ransomware families in the dataset. The "Annual Ransomware Emergence by Model" chart (Figure \ref{fig:raas_evolution}, left) highlights a spike in RaaS emergence in 2019 and 2021. This correlates with the standardization of affiliate programs, where developers shifted focus onto malware engineering and infrastructure, while affiliates handle infection and lateral movement. This specialization lowered the barrier of entry for less technically skilled actors, contributing to the sustained high volume of incidents observed in the event cadence analysis.
+By 2025 RaaS families account for \textbf{61\%} of the cumulative ransomware families in the dataset. The "Annual Ransomware Emergence by Model" chart (Figure \ref{fig:raas_evolution}, left) highlights a spike in RaaS emergence in 2019 and 2021. This correlates with the standardisation of affiliate programs, where developers shifted focus onto malware engineering and infrastructure, while affiliates handle infection and lateral movement. This specialisation lowered the barrier of entry for less technically skilled actors, contributing to the sustained high volume of incidents observed in the event cadence analysis.
 
-The "Cumulative RaaS Adoption" area chart (Figure \ref{fig:raas_evolution}, right) visualizes this market saturation. The steady growth from 31\% in 2018 to 61\% in 2025 suggests that RaaS has become the dominant operational model. This trend explains the resilience observed in the ecosystem, even when individual groups are taken down, the underlying business model persists. Allowing for affiliates to migrate effortlessly to new platforms.
+The "Cumulative RaaS Adoption" area chart (Figure \ref{fig:raas_evolution}, right) visualises this market saturation. The steady growth from 31\% in 2018 to 61\% in 2025 suggests that RaaS has become the dominant operational model. This trend explains the resilience observed in the ecosystem, even when individual groups are taken down, the underlying business model persists. Allowing for affiliates to migrate effortlessly to new platforms.
 
 \begin{figure*}[h!]
     \centering
@@ -545,7 +545,7 @@ The evolution of Ransomware-as-a-Service (RaaS) programmes represents a fundamen
 
 \textit{Temporal coverage.} Some sources exhibit gaps in 2020--2021 collection. We flagged sparse intervals and only included events with verifiable dates from multiple independent signals.
 
-\subsection{Generalizability}
+\subsection{Generalisability}
 Findings generalise to common enterprise Windows environments and commodity IoT devices, which constitute the majority of the dataset. Evidence is weaker for mobile platforms, highly managed macOS fleets, and cloud-native serverless or container-heavy workloads. The 83 families analysed represent the most impactful and well-documented malware of the period; less prominent families may exhibit different patterns. Transferability should be considered moderate for organisations that differ significantly from the profiled telemetry sources.
 
 \subsection{Practical Implications}
