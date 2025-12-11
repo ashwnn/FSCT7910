@@ -569,7 +569,25 @@ This study extends previous surveys by providing a quantitative, longitudinal pe
 \section{Conclusion and Future Work}
 This decadal analysis synthesises 98 public incidents into a structured timeline, offering a rare longitudinal view of how malware evasion strategies evolve. Key contributions include demonstrating that botnets persist longer than ransomware despite similar technique counts, quantifying that over half of ransomware families now practise double extortion, and showing that event activity peaked during the rise of ransomware-as-a-service models. These insights help analysts recognise recurring patterns, prioritise defences such as rapid patching and credential hygiene, and appreciate the limited deterrent effect of takedowns.
 
-Future work should expand the dataset to include mobile, cloud and container-native malware and should integrate dynamic execution traces to capture advanced evasions like scriptless attacks and AI-generated payloads. Quantitative evaluation of law-enforcement impact could be refined by correlating incidents with specific arrest or seizure dates. Finally, predictive models could be developed to forecast the emergence of new techniques and to identify families most likely to adopt double extortion, thereby enabling proactive defence.
+\subsection{Limitations}
+Several constraints bound the generalisability of these findings:
+
+\begin{itemize}
+    \item \textbf{Sample scope:} The dataset comprises 83 malware families (19 botnets, 64 ransomware) and 98 timeline events. While this captures major threats, less prominent or regionally focused families may exhibit different patterns. The imbalance between ransomware (77\%) and botnet (23\%) families reflects reporting prevalence rather than true population proportions.
+    
+    \item \textbf{Public source dependency:} All data derive from publicly available reports (CISA advisories, vendor threat intelligence, academic publications). Privately disclosed incidents, nation-state operations, and unreported attacks are not represented, potentially skewing findings toward higher-profile campaigns.
+    
+    \item \textbf{CVE-to-exploitation lag:} Patch-to-exploit lag analysis was limited to three CVEs where both patch release and exploitation dates were documented. Broader lag analysis requires additional data linkage not present in current datasets, limiting statistical power for this metric.
+    
+    \item \textbf{Platform coverage:} The corpus predominantly covers Windows-based ransomware and IoT-targeting botnets. Mobile platforms (Android, iOS), macOS, and cloud-native or container workloads remain underrepresented, reducing applicability to those environments.
+    
+    \item \textbf{Temporal gaps:} Some sources exhibit reduced coverage during 2018 (only 2 events recorded) and portions of 2020--2021. These gaps may reflect collection limitations rather than reduced threat activity.
+    
+    \item \textbf{Classification ambiguity:} Double-extortion classification relies on documented group behaviour; families that exfiltrate data without public disclosure may be undercounted. Similarly, family boundaries vary by vendor, and some entries span multiple years when variants were reported separately.
+\end{itemize}
+
+\subsection{Future Work}
+Future work should expand the dataset to include mobile, cloud, and container-native malware and should integrate dynamic execution traces to capture advanced evasions like scriptless attacks and AI-generated payloads. Quantitative evaluation of law-enforcement impact could be refined by correlating incidents with specific arrest or seizure dates. Broader patch-to-exploit lag analysis would benefit from systematic CVE-to-malware linkage. Finally, predictive models could be developed to forecast the emergence of new techniques and to identify families most likely to adopt double extortion, thereby enabling proactive defence.
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
