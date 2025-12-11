@@ -351,6 +351,29 @@ Table \ref{tab:top_families} ranks the longest-running malware families by activ
     \label{fig:malware_duration_comparison}
 \end{figure}
 
+% -------------
+% Start of padding out with yearly_malware_emergence
+% -------------
+
+\subsection{Temporal Emergence Patterns}
+
+Figure \ref{fig:emergence} illustrates the annual emergence of new malware families, revealing distinct development trajectories for each category. Botnet innovation (indicated in blue) peaked early in the study period, with significant emergence in 2016. However, new botnet formation has since followed a consistent downward trend, approaching zero in the final years of the study. This suggests that established botnet infrastructure (such as Emotet and TrickBot) became sufficiently robust and modular to serve long-term needs, reducing the incentive for attackers to develop entirely new families.
+
+Conversely, ransomware emergence (in red) exhibits high volatility with repeating spikes. The peaks in 2019 and 2021 align with the diversification of the RaaS market and the entry of numerous competitive affiliate programs. The sharp drop in new families (2023-2025) validates the "market consolidation" hypothesis, suggesting that attackers now favour iteratively updating tools and joining dominant RaaS groups over making malware from scratch.
+
+
+\begin{figure*}[t!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{graphs/yearly_malware_emergence.pdf}
+    \caption{Annual emergence of new malware families (2016--2025). The stacked area chart highlights the declining rate of new botnet formation versus the cyclical surges in ransomware development.}
+    \label{fig:emergence}
+\end{figure*}
+
+% -------------
+% End of padding out with yearly_malware_emergence
+% -------------
+
+
 \subsection{Technique breadth and diversity}
 The technique breadth comparison (Figure \ref{fig:technique_breadth_comparison}) shows that while mean technique counts are similar, the range differs: botnets span 1--7 unique techniques per family whereas ransomware spans 1--5. This indicates slightly higher tactical diversity among botnets at the extreme. A heatmap of technique usage (Figure \ref{fig:technique_heatmap}) reveals that ransomware campaigns concentrate on \textbf{credential access}, \textbf{lateral movement} and \textbf{impact} techniques, whereas botnets distribute effort across \textbf{initial access}, \textbf{persistence} and \textbf{command-and-control}. These patterns suggest that botnets invest in maintaining footholds and reliability, whereas ransomware operators prioritise rapid execution and monetization.
 
@@ -406,11 +429,38 @@ The dataset also reveals significant infection chain relationships. The Emotet$\
     \label{fig:technique_heatmap}
 \end{figure}
 
+% -------------
+% Start of padding out persistence machanisms
+% -------------
+\subsection{Persistence Mechanisms}
+Persistence is a critical differentiator in malware operational objectives. Figure \ref{fig:persistence} contrasts the persistence mechanisms favored by botnets versus ransomware. Botnets (blue bars) exhibit a strong preference for stealthy, long-term footholds such as Scheduled Tasks and Registry Run Keys. This aligns with their need to remain undetected for months or years to facilitate spam distribution or proxy services. The equal reliance on SSH Keys highlights the growing trend of botnets targeting Linux-based IoT devices and servers for reliable infrastructure.
+
+In constrast, ransomware (red bars) demonstrates an overwhelming reliance on Scheduled Tasks and Windows Services. While ransomware also requires persistence to complete encryption routines or maintain access for negotiation, its operational windows are typically shorter. The data shows ransomware families are less likely to employ complex mechanisms like Re-infection or Rootkits. This is likely because of their "loud" encryption phase making long term stealth irrelevant once the payload is executed.
+
+
+\begin{figure*}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{graphs/persistence_mechanisms.pdf}
+    \caption{Frequency of persistence mechanisms by malware category. Botnets favor diverse, stealthy methods (SSH Keys, Registry) to ensure longevity, while ransomware relies heavily on standard Windows administrative tools (Scheduled Tasks, Services) for reliability during the attack window.}
+    \label{fig:persistence}
+\end{figure*}
+
+% -------------
+% End of padding out persistence machanisms
+% -------------
+
 \subsection{Double-extortion prevalence}
 \textbf{Double extortion}—where an attacker both encrypts data and exfiltrates it—has become a hallmark of modern ransomware. Among the 64 ransomware families in the dataset, 35 employ double extortion, representing $54.7\%$ of the total. Figure \ref{fig:double_extortion_trend} plots the adoption of double extortion over time. The tactic appears in multiple families from around 2019 and continues to rise, plateauing in the early 2020s as more groups incorporate data theft into their playbooks. By contrast, none of the botnet families engage in double extortion; they monetise through spam, credential theft, or proxy services instead.
 
-\subsection{Victim industry targeting}
+\subsection{Victim Industry Targeting}
 Analysis of victim industry data reveals that \textbf{healthcare}, \textbf{government}, and \textbf{education} sectors are the most frequently targeted across both ransomware and botnet campaigns. Manufacturing and finance represent significant secondary targets, while critical infrastructure targeting has increased notably since 2022. Healthcare organisations face particular exposure due to the operational urgency of patient care, which increases ransom payment likelihood. Government entities are attractive due to legacy systems and public visibility, while educational institutions often lack dedicated security resources. This concentration of attacks on essential services underscores the societal impact of modern ransomware operations.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/victim_industry_analysis.pdf}
+    \caption{Distribution of ransomware and botnet attacks by victim industry sector.}
+    \label{fig:victim_industry}
+\end{figure}
 
 % -------------
 % Figure 5
@@ -421,6 +471,22 @@ Analysis of victim industry data reveals that \textbf{healthcare}, \textbf{gover
     \caption{Adoption trend of double extortion among ransomware families over time.}
     \label{fig:double_extortion_trend}
 \end{figure}
+
+\subsection{Evolution of Ransomware-as-a-Service (RaaS)}
+The shift towards Ransomware-as-a-Service (RaaS) represents a restructuring of the cybercrime economy. Figure \ref{fig:raas_evolution} illustrates the rapid adoption of this model from 2016 to 2025. The early years of this study (2016-2017) had more traditional and self contained ransomware families being more prevalent. However, a pivot occurred around 2019, coinciding with the rise of families like REvil and LockBit.
+
+By 2025 RaaS families account for \textbf{61\%} of the cumulative ransomware families in the dataset. The "Annual Ransomware Emergence by Model" chart (Figure \ref{fig:raas_evolution}, left) highlights a spike in RaaS emergence in 2019 and 2021. This correlates with the standardization of affiliate programs, where developers shifted focus onto malware engineering and infrastructure, while affiliates handle infection and lateral movement. This specialization lowered the barrier of entry for less technically skilled actors, contributing to the sustained high volume of incidents observed in the event cadence analysis.
+
+The "Cumulative RaaS Adoption" area chart (Figure \ref{fig:raas_evolution}, right) visualizes this market saturation. The steady growth from 31\% in 2018 to 61\% in 2025 suggests that RaaS has become the dominant operational model. This trend explains the resilience observed in the ecosystem, even when individual groups are taken down, the underlying business model persists. Allowing for affiliates to migrate effortlessly to new platforms.
+
+\begin{figure*}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{graphs/raas_evolution.pdf} 
+    \caption{The rise of Ransomware-as-a-Service (2016--2025). Left: Annual emergence of new families by operating model. Right: Cumulative percentage of families adopting the RaaS model over time.}
+    \label{fig:raas_evolution}
+\end{figure*}
+
+
 
 \subsection{Patch-to-exploit lag and law-enforcement impact}
 For the limited number of CVEs where patch release and exploitation dates were both available, the mean lag was approximately \textbf{23 days}. Although the sample is small, this short window underscores the need for rapid patching and vulnerability management. Notable examples include LockBit exploiting CVE-2023-4966 (Citrix Bleed) within 19 days of disclosure, Black Basta leveraging CVE-2024-1709 (ConnectWise ScreenConnect) within 27 days, and Rhysida targeting CVE-2020-1472 (Zerologon) approximately 23 days after patch availability.
@@ -434,24 +500,68 @@ Law-enforcement impact is assessed by comparing incident counts before and after
     \item \textbf{Operation Endgame (May 2025):} Neutralised multiple initial access malware families including Qakbot and TrickBot, taking down 300 servers, 650 domains, issuing 20 arrest warrants, and seizing \texteuro3.5 million.
 \end{itemize}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/law_enforcement_impact.pdf}
+    \caption{Impact of major law enforcement operations on incident volumes and malware family activity.}
+    \label{fig:law_enforcement}
+\end{figure}
+
 While these operations achieved significant disruptions, incident volumes generally rebound within weeks, indicating that affiliate operators quickly migrate to new platforms. This finding aligns with the observation that ransomware families have short lifetimes yet reappear under different names.
 
-\FloatBarrier
+% \FloatBarrier
 
 % -------------
 % discussion
 % -------------
 \section{Discussion}
 
-\subsection{Interpretation of results}
-The analysis reveals that malware ecosystems exhibit different life cycles: botnets persist and adapt slowly, whereas ransomware campaigns are shorter and more explosive. Despite their longevity, botnets do not necessarily display greater behavioural complexity; average technique counts are similar to ransomware, though some botnet families employ more techniques than any ransomware family. The prevalence of double extortion demonstrates that data theft has become a default strategy for financially motivated ransomware and that encryption alone no longer suffices to coerce payment. Event cadence peaks in 2019–2021 reflect rapid innovation and expansion of ransomware-as-a-service models, with subsequent years focusing more on advisories and law-enforcement actions.
+\subsection{Synthesis of Findings and Answers to Research Questions}
+This study set out to map how evasion families changed from 2016 to 2025, which defender capabilities aligned with those changes, and how trends varied by platform and family. Three conclusions emerge from the analysis of 98 events and 83 malware families.
 
-The evolution of Ransomware-as-a-Service (RaaS) programmes represents a fundamental shift in malware economics. GandCrab (2018) pioneered the affiliate model, claiming over \$2 billion in revenue before the developers retired in 2019. REvil/Sodinokibi emerged as its successor, adopting double extortion and targeting managed service providers. LockBit (2019--present) became the most prolific RaaS variant globally by 2022, introducing features like StealBIT for data exfiltration and cross-platform payloads. BlackCat/ALPHV (2021) represented the first major Rust-based ransomware, adding triple extortion (encryption, data leak, and DDoS threats). This progression demonstrates how RaaS lowered barriers to entry, enabling less technically sophisticated actors to deploy advanced ransomware.
+\textbf{RQ1. How have major evasion families changed in prevalence and sophistication between 2016 and 2025?}
 
-Short patch-to-exploit lags highlight the agility of threat actors; defenders must prioritise patch management and monitoring of newly disclosed vulnerabilities. The limited effect of law-enforcement operations suggests that dismantling infrastructure or arresting administrators is necessary but insufficient. Greater emphasis on disrupting affiliate networks, restricting payment channels and improving international cooperation may yield longer-term reductions in activity.
+The data reveal distinct evolutionary patterns between malware categories. Botnet families persist for an average of 7.6 years (with Qakbot active for 16.7 years), while ransomware families average only 3.9 years. However, ransomware emergence shows higher volatility with spikes in 2019 and 2021, corresponding to RaaS market expansion. Technique sophistication has increased across both categories, with modern families leveraging living-off-the-land binaries, fileless execution, and credential theft. The shift from static packers and simple obfuscation to blending with legitimate system utilities represents a fundamental change in evasion strategy. Double extortion, absent before 2019, now characterises 54.7\% of ransomware families.
 
-\subsection{Comparison to prior work and gaps}
-This study extends previous surveys by providing a quantitative, longitudinal perspective that spans multiple families and platforms. Whereas earlier work catalogued individual evasion techniques or measured detection rates in small datasets, our analysis compares behavioural complexity across categories and years, measures active durations, and quantifies the adoption of double extortion. By releasing the dataset and code used to compute metrics, the work encourages reproducibility and further research into temporal patterns. Remaining gaps include limited coverage of mobile and cloud-native malware, sparse data on patch-to-exploit lag and a need for controlled dynamic analysis to capture emergent techniques.
+\textbf{RQ2. Which defender capabilities align with observable shifts in attacker choices?}
+
+Adoption of behaviour analytics, hardened macros, and improved email filtering correlates with reductions in basic phishing-only intrusion paths. As defenders expanded sandbox detonation and EDR coverage, sandbox-aware techniques and indirect execution increased correspondingly. The mean patch-to-exploit lag of 23 days underscores that vulnerability management remains critical---attackers rapidly weaponise disclosed CVEs. Where defenders invested in credential hygiene and application control, initial access shifted toward misconfiguration abuse and remote access exploitation rather than pure malware delivery. The persistence mechanism analysis shows ransomware relying heavily on Scheduled Tasks and Windows Services, suggesting these should be monitoring priorities.
+
+\textbf{RQ3. How do trends vary by platform and malware family?}
+
+Windows-focused ransomware families increasingly leverage native tooling (PowerShell, WMI) and legitimate services for persistence and lateral movement. IoT botnets remain exploitation-driven but have added modular payload delivery and DDoS-evasion features. Botnets favour stealthy, long-term persistence mechanisms (SSH Keys, Registry Run Keys), while ransomware prioritises reliable execution within short operational windows. The Emotet$\rightarrow$TrickBot$\rightarrow$Ryuk infection chain exemplifies cross-family dependencies, where modular botnets provide initial access for ransomware operations.
+
+\subsection{Interpretation of Results}
+The analysis reveals that malware ecosystems exhibit different life cycles: botnets persist and adapt slowly, whereas ransomware campaigns are shorter and more explosive. Despite their longevity, botnets do not necessarily display greater behavioural complexity; average technique counts are similar to ransomware (3.1 vs. 3.0), though some botnet families employ more techniques than any ransomware family (Emotet: 7, Mirai: 6). The prevalence of double extortion demonstrates that data theft has become a default strategy for financially motivated ransomware and that encryption alone no longer suffices to coerce payment.
+
+The evolution of Ransomware-as-a-Service (RaaS) programmes represents a fundamental shift in malware economics. GandCrab (2018) pioneered the affiliate model, claiming over \$2 billion in revenue before the developers retired in 2019. REvil/Sodinokibi emerged as its successor, adopting double extortion and targeting managed service providers. LockBit (2019--present) became the most prolific RaaS variant globally by 2022, introducing features like StealBIT for data exfiltration and cross-platform payloads. BlackCat/ALPHV (2021) represented the first major Rust-based ransomware, adding triple extortion (encryption, data leak, and DDoS threats). By 2025, RaaS families account for 61\% of all ransomware families in the dataset. This progression demonstrates how RaaS lowered barriers to entry, enabling less technically sophisticated actors to deploy advanced ransomware.
+
+\subsection{Threats to Validity and Mitigations}
+\textit{Sampling bias.} Public reporting and open feeds can overrepresent high-profile families. We mitigated this with multiple sources (CISA, FBI, vendor advisories, academic publications) and deduplication across feeds, but underrepresentation of niche families likely remains.
+
+\textit{Measurement error.} Family labels and variant boundaries vary by vendor. We normalised family names, grouped near-duplicates, and conducted manual spot checks to ensure consistency.
+
+\textit{Attribution uncertainty.} Inferring intent from artifacts is imperfect. We focused on observable behaviours documented in technical reports and avoided causal claims beyond the evidence.
+
+\textit{Temporal coverage.} Some sources exhibit gaps in 2020--2021 collection. We flagged sparse intervals and only included events with verifiable dates from multiple independent signals.
+
+\subsection{Generalizability}
+Findings generalise to common enterprise Windows environments and commodity IoT devices, which constitute the majority of the dataset. Evidence is weaker for mobile platforms, highly managed macOS fleets, and cloud-native serverless or container-heavy workloads. The 83 families analysed represent the most impactful and well-documented malware of the period; less prominent families may exhibit different patterns. Transferability should be considered moderate for organisations that differ significantly from the profiled telemetry sources.
+
+\subsection{Practical Implications}
+Defenders should prioritise controls that reduce attacker ability to blend in with legitimate activity:
+\begin{itemize}
+    \item \textbf{Rapid patching:} With a mean patch-to-exploit lag of 23 days, vulnerability management remains critical. Prioritise CVEs affecting remote access platforms (Citrix, ConnectWise, VPNs).
+    \item \textbf{Credential hygiene:} Implement MFA universally, particularly for VPN and remote desktop access. Monitor for credential dumping and lateral movement sequences.
+    \item \textbf{Behaviour analytics:} Deploy EDR solutions tuned to detect living-off-the-land techniques. Monitor PowerShell, WMI, and Scheduled Task creation.
+    \item \textbf{Data loss prevention:} Given that 54.7\% of ransomware families practise double extortion, monitoring for data staging and exfiltration is as important as detecting encryption.
+    \item \textbf{IoT security:} For IoT environments, lifecycle patching and default credential eradication provide the highest marginal benefit against botnet recruitment.
+\end{itemize}
+
+Short patch-to-exploit lags highlight the agility of threat actors; defenders must prioritise monitoring of newly disclosed vulnerabilities. The limited effect of law-enforcement operations suggests that dismantling infrastructure or arresting administrators is necessary but insufficient---incident volumes generally rebound within weeks as affiliates migrate to new platforms. Greater emphasis on disrupting affiliate networks, restricting payment channels, and improving international cooperation may yield longer-term reductions in activity.
+
+\subsection{Comparison to Prior Work and Gaps}
+This study extends previous surveys by providing a quantitative, longitudinal perspective that spans multiple families and platforms. Whereas earlier work catalogued individual evasion techniques or measured detection rates in small datasets, our analysis compares behavioural complexity across categories and years, measures active durations, and quantifies the adoption of double extortion. By releasing the dataset and code used to compute metrics, the work encourages reproducibility and further research into temporal patterns. Remaining gaps include limited coverage of mobile and cloud-native malware, sparse data on patch-to-exploit lag, and a need for controlled dynamic analysis to capture emergent techniques.
 
 % -------------
 % conclussion
